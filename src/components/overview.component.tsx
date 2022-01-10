@@ -31,10 +31,10 @@ const Overview: React.FC<Props> = ({ setThemeName, favorites }) => {
         const selectedThemeId = +e.target.value;
         const foundTheme = legoThemes.find(theme => theme.id === selectedThemeId);
 
-        setSelectedTheme(foundTheme!);
-        setThemeName(foundTheme!.name);
+        foundTheme && setSelectedTheme(foundTheme);
+        foundTheme && setThemeName(foundTheme.name);
+        
         setLoading(true);
-
         ResourceService.getSetsByTheme(selectedThemeId)
             .then(response => response.data.results)
             .then(setThemeSets)
