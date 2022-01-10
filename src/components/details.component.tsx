@@ -17,6 +17,8 @@ const Details: React.FC<Props> = ({ themeName, addFavorite, removeFavorite }) =>
     const [error, setError] = useState(null);
 
     useEffect((): void => {
+        console.log(themeName);
+        setTheme(themeName);
         setLoading(true);
         const setId = getSelectedSetFromUrl();
         ResourceService.getSetById(setId)
@@ -24,11 +26,6 @@ const Details: React.FC<Props> = ({ themeName, addFavorite, removeFavorite }) =>
             .then(setSelectedSet)
             .then(() => setLoading(false))
             .catch(setError)
-    }, []);
-
-    useEffect((): void => {
-        console.log(themeName);
-        setTheme(themeName);
     }, [themeName]);
 
     const getSelectedSetFromUrl = (): string => {
