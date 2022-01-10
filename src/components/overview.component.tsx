@@ -4,11 +4,11 @@ import ResourceService from '../services/resource.service';
 import { Set, Theme } from '../types/rebrickable-lego.types';
 
 interface Props {
-    passThemeName: (themeName: string) => void,
+    setThemeName: (themeName: string) => void,
     favorites: Set[]
 }
 
-const Overview: React.FC<Props> = ({ passThemeName, favorites }) => {
+const Overview: React.FC<Props> = ({ setThemeName, favorites }) => {
     const [legoThemes, setLegoThemes] = useState([] as Theme[]);
     const [themeSets, setThemeSets] = useState([] as Set[]);
     const [selectedTheme, setSelectedTheme] = useState({} as Theme);
@@ -17,6 +17,7 @@ const Overview: React.FC<Props> = ({ passThemeName, favorites }) => {
     const [error, setError] = useState(null);
 
     useEffect((): void => {
+        console.log(favorites);
         setFavoriteSets(favorites);
         setLoading(true);
         ResourceService.getThemes()
@@ -27,11 +28,11 @@ const Overview: React.FC<Props> = ({ passThemeName, favorites }) => {
     }, [favorites]);
 
     const setSelectedThemeSets = (e: ChangeEvent<HTMLSelectElement>): void => {
-        const selectedThemeId = parseInt(e.target.value);
+        const selectedThemeId = +e.target.value;
         const foundTheme = legoThemes.find(theme => theme.id === selectedThemeId);
 
-        setSelectedTheme(foundTheme || {} as Theme);
-        passThemeName(foundTheme!.name);
+        setSelectedTheme(foundTheme!);
+        setThemeName(foundTheme!.name);
         setLoading(true);
 
         ResourceService.getSetsByTheme(selectedThemeId)

@@ -4,12 +4,12 @@ import ResourceService from '../services/resource.service';
 import { Set } from '../types/rebrickable-lego.types';
 
 interface Props {
-    selectedTheme: string,
+    themeName: string,
     addFavorite: (setId: string) => void,
     removeFavorite: (setId: string) => void,
 }
 
-const Details: React.FC<Props> = ({ selectedTheme, addFavorite, removeFavorite }) => {
+const Details: React.FC<Props> = ({ themeName, addFavorite, removeFavorite }) => {
     const [theme, setTheme] = useState('');
     const [selectedSet, setSelectedSet] = useState({} as Set);
     const [favorite, setFavorite] = useState(false);
@@ -17,7 +17,6 @@ const Details: React.FC<Props> = ({ selectedTheme, addFavorite, removeFavorite }
     const [error, setError] = useState(null);
 
     useEffect((): void => {
-        setTheme(selectedTheme);
         setLoading(true);
         const setId = getSelectedSetFromUrl();
         ResourceService.getSetById(setId)
@@ -25,7 +24,12 @@ const Details: React.FC<Props> = ({ selectedTheme, addFavorite, removeFavorite }
             .then(setSelectedSet)
             .then(() => setLoading(false))
             .catch(setError)
-    }, [selectedTheme]);
+    }, []);
+
+    useEffect((): void => {
+        console.log(themeName);
+        setTheme(themeName);
+    }, [themeName]);
 
     const getSelectedSetFromUrl = (): string => {
         const currentPath = window.location.pathname;

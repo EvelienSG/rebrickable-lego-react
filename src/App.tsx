@@ -7,30 +7,31 @@ import Overview from './components/overview.component';
 import { Set } from './types/rebrickable-lego.types';
 
 const App: React.FC = () => {
-    const [selectedTheme, setSelectedTheme] = useState<string>('');
+    const [selectedThemeName, setSelectedThemeName] = useState<string>('initialValue');
     const [favoriteSets, setFavoriteSets] = useState<Set[]>([]);
 
     const setThemeName = useCallback((themeName: string): void => {
         console.log(themeName);
-        setSelectedTheme(themeName);
-    }, []);
+        setSelectedThemeName(themeName);
+    },[]);
 
     const addFavorite = useCallback((setId: string): void => {
         console.log(setId);
         const favoriteSet = favoriteSets.find(set => set.set_num === setId);
 
         if (!favoriteSet) {
-            favoriteSets.push({
+            setFavoriteSets([{
                 set_num: setId,
                 favorite: true
-            });
+            }, ...favoriteSets]);
+            console.log(favoriteSets);
         }
     }, [favoriteSets]);
 
     const removeFavorite = useCallback((setId: string): void => {
         console.log(setId);
-        const newFavorites = favoriteSets.filter(set => set.set_num !== setId);
-        setFavoriteSets(newFavorites);
+        setFavoriteSets(favoriteSets.filter(set => set.set_num !== setId));
+        console.log(favoriteSets);
     }, [favoriteSets]);
 
     return (
@@ -40,15 +41,15 @@ const App: React.FC = () => {
                 <Routes>
                     <Route path="/"
                         element={<Overview
-                            passThemeName={setThemeName}
+                            setThemeName={setThemeName}
                             favorites={favoriteSets} />} />
                     <Route path="/overview"
                         element={<Overview
-                            passThemeName={setThemeName}
+                            setThemeName={setThemeName}
                             favorites={favoriteSets} />} />
                     <Route path="/details/:id"
                         element={<Details
-                            selectedTheme={selectedTheme}
+                            themeName={selectedThemeName}
                             addFavorite={addFavorite}
                             removeFavorite={removeFavorite} />} />
                 </Routes>
