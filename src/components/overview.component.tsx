@@ -14,16 +14,16 @@ const Overview: React.FC = () => {
     const [error, setError] = useState(null);
     const { favoriteSets } = useContext(favoritesContext);
 
-    console.log(favoriteSets);
-
     useEffect((): void => {
-        setLoadingThemes(true);
+        const favorites: Set[] = favoriteSets;
+        console.log(favoriteSets);
 
+        setLoadingThemes(true);
         getThemes()
             .then(data => setLegoThemes(data.results))
             .finally(() => setLoadingThemes(false))
-            .catch(setError)
-    }, []);
+            .catch(setError);
+    }, [favoriteSets]);
 
     const setSelectedThemeSets = (e: ChangeEvent<HTMLSelectElement>): void => {
         e.preventDefault();

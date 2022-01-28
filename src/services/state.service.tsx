@@ -19,20 +19,22 @@ export const useFavoritesContext = (): Favorites => {
     const [favoriteSets, setFavoriteSets] = useState<Set[]>([]);
 
     const addFavorite = useCallback((setId: string, setName: string): void => {
-        console.log(setId, setName);
+        console.log('add ', setId);
         const favoriteSet = favoriteSets.find(set => set.set_num === setId);
 
         if (!favoriteSet) {
-            setFavoriteSets([{
+            const tempFavs = favoriteSets;
+            console.log(tempFavs);
+
+            setFavoriteSets([...tempFavs, {
                 set_num: setId,
-                name: setName,
-                favorite: true
-            }, ...favoriteSets]);
+                name: setName
+            }]);
         }
     }, [favoriteSets]);
 
     const removeFavorite = useCallback((setId: string): void => {
-        console.log(setId);
+        console.log('remove ', setId);
         setFavoriteSets(favoriteSets.filter(set => set.set_num !== setId));
     }, [favoriteSets]);
 

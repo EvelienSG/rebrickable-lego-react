@@ -8,7 +8,7 @@ import { Set } from '../types/rebrickable-lego.types';
 
 const Details: React.FC = () => {
     const [selectedSet, setSelectedSet] = useState({} as Set);
-    const [favorite, toggleFavorite] = useReducer((favorite) => !favorite, false);
+    const [favorite, setFavorite] = useState(false);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [themeName, setThemeName] = useState('');
@@ -30,17 +30,17 @@ const Details: React.FC = () => {
             .catch(setError)
     }, []);
 
-    useEffect((): void => {
-        favorite ? addFavorite(selectedSet.set_num, selectedSet.name) : removeFavorite(selectedSet.set_num);
-
-        //missing deps are on purpose, otherwise an infinite loop is triggered
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [favorite, selectedSet.set_num, selectedSet.name]);
-
     const getSelectedSetFromUrl = (): string => {
         const currentPath = window.location.pathname;
 
         return currentPath.substring(currentPath.lastIndexOf('/') + 1);
+    }
+
+    const toggleFavorite = () => {
+        const fav = !favorite;
+        
+        setFavorite((favorite) => !favorite);
+        fav ? addFavorite(selectedSet.set_num, selectedSet.name) : removeFavorite(selectedSet.set_num);
     }
 
     const navigateBack = (e: MouseEvent<HTMLButtonElement>): void => {

@@ -9,5 +9,4 @@ export interface Set {
     year?: number;
     num_parts?: number;
     set_img_url?: string;
-    favorite?: boolean;
   }
