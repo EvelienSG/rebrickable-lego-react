@@ -14,6 +14,7 @@ import {
   Stack,
 } from "react-bootstrap";
 import { FcLike } from "react-icons/fc";
+import { MdDeleteForever } from "react-icons/md";
 import { Link } from "react-router-dom";
 import { getSetsByTheme, getThemes } from "../services/resource.service";
 import { favoritesContext } from "../services/state.service";
@@ -26,7 +27,7 @@ const Overview: React.FC = () => {
   const [loadingThemes, setLoadingThemes] = useState(false);
   const [loadingSets, setLoadingSets] = useState(false);
   const [error, setError] = useState(null);
-  const { favoriteSets } = useContext(favoritesContext);
+  const { favoriteSets, removeFavorite } = useContext(favoritesContext);
 
   useEffect((): void => {
     setLoadingThemes(true);
@@ -117,7 +118,12 @@ const Overview: React.FC = () => {
                 <h4>Favorite sets</h4>
                 <ul>
                   {favoriteSets?.map((set) => (
-                    <li key={set.set_num}>{set.name}</li>
+                    <li key={set.set_num}>
+                      {set.name}
+                      <MdDeleteForever 
+                      style={{ marginLeft: "10px" }}
+                      onClick={removeFavorite(set.set_num)}></MdDeleteForever>
+                    </li>
                   ))}
                 </ul>
               </div>
