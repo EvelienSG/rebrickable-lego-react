@@ -28,8 +28,6 @@ const Overview: React.FC = () => {
   const [error, setError] = useState(null);
   const { favoriteSets } = useContext(favoritesContext);
 
-  console.log(favoriteSets);
-
   useEffect((): void => {
     setLoadingThemes(true);
 
