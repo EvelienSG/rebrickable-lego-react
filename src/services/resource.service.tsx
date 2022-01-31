@@ -1,6 +1,6 @@
 export const getThemes = (): Promise<any> => {
   return fetch(
-    "https://rebrickable.com/api/v3/lego/themes?key=cef91563c41612c871ed256c1a22e628"
+    'https://rebrickable.com/api/v3/lego/themes?key=cef91563c41612c871ed256c1a22e628'
   ).then((response) => response.json());
 };
 

@@ -1,5 +1,5 @@
-import { createContext, useCallback, useState } from "react";
-import { Set } from "../types/rebrickable-lego.types";
+import { createContext, useCallback, useState } from 'react';
+import { Set } from '../types/rebrickable-lego.types';
 
 interface Favorites {
   favoriteSets: Set[];

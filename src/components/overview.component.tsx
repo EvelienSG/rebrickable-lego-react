@@ -4,7 +4,7 @@ import React, {
   useContext,
   useEffect,
   useState,
-} from "react";
+} from 'react';
 import {
   Alert,
   Button,
@@ -12,13 +12,13 @@ import {
   ListGroup,
   Spinner,
   Stack,
-} from "react-bootstrap";
-import { FcLike } from "react-icons/fc";
-import { MdDeleteForever } from "react-icons/md";
-import { Link } from "react-router-dom";
-import { getSetsByTheme, getThemes } from "../services/resource.service";
-import { favoritesContext } from "../services/state.service";
-import { Set, Theme } from "../types/rebrickable-lego.types";
+} from 'react-bootstrap';
+import { FcLike } from 'react-icons/fc';
+import { MdDeleteForever } from 'react-icons/md';
+import { Link } from 'react-router-dom';
+import { getSetsByTheme, getThemes } from '../services/resource.service';
+import { favoritesContext } from '../services/state.service';
+import { Set, Theme } from '../types/rebrickable-lego.types';
 
 const Overview: React.FC = () => {
   const [legoThemes, setLegoThemes] = useState([] as Theme[]);
@@ -66,7 +66,7 @@ const Overview: React.FC = () => {
     );
     let favIcon;
     if (favorite) {
-      favIcon = <FcLike style={{ marginLeft: "10px" }}></FcLike>;
+      favIcon = <FcLike style={{ marginLeft: '10px' }}></FcLike>;
     }
 
     return (
@@ -80,11 +80,11 @@ const Overview: React.FC = () => {
   });
 
   return loadingThemes ? (
-    <Spinner animation="border" variant="secondary"></Spinner>
+    <Spinner animation='border' variant='secondary'></Spinner>
   ) : error ? (
     <div>
-      <Alert variant="warning">Oops, something went wrong!</Alert>
-      <Button href={"/overview"}>Try again</Button>
+      <Alert variant='warning'>Oops, something went wrong!</Alert>
+      <Button href={'/overview'}>Try again</Button>
     </div>
   ) : (
     <>
@@ -99,11 +99,11 @@ const Overview: React.FC = () => {
           </Form.Select>
         </Form>
         {loadingSets ? (
-          <Spinner animation="border" variant="secondary"></Spinner>
+          <Spinner animation='border' variant='secondary'></Spinner>
         ) : error ? (
           <div>
-            <Alert variant="warning">Oops, something went wrong!</Alert>
-            <Button href={"/overview"}>Try again</Button>
+            <Alert variant='warning'>Oops, something went wrong!</Alert>
+            <Button href={'/overview'}>Try again</Button>
           </div>
         ) : (
           <div>
@@ -120,9 +120,10 @@ const Overview: React.FC = () => {
                   {favoriteSets?.map((set) => (
                     <li key={set.set_num}>
                       {set.name}
-                      <MdDeleteForever 
-                      style={{ marginLeft: "10px" }}
-                      onClick={removeFavorite(set.set_num)}></MdDeleteForever>
+                      <MdDeleteForever
+                        style={{ marginLeft: '10px' }}
+                        onClick={removeFavorite(set.set_num)}
+                      ></MdDeleteForever>
                     </li>
                   ))}
                 </ul>

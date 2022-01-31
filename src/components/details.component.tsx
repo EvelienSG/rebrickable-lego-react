@@ -1,4 +1,4 @@
-import React, { MouseEvent, useContext, useEffect, useState } from "react";
+import React, { MouseEvent, useContext, useEffect, useState } from 'react';
 import {
   Alert,
   Button,
@@ -7,19 +7,19 @@ import {
   Row,
   Spinner,
   Stack,
-} from "react-bootstrap";
-import { FcLike, FcLikePlaceholder } from "react-icons/fc";
-import { useNavigate } from "react-router-dom";
-import { getSetById, getThemeById } from "../services/resource.service";
-import { favoritesContext } from "../services/state.service";
-import { Set } from "../types/rebrickable-lego.types";
+} from 'react-bootstrap';
+import { FcLike, FcLikePlaceholder } from 'react-icons/fc';
+import { useNavigate } from 'react-router-dom';
+import { getSetById, getThemeById } from '../services/resource.service';
+import { favoritesContext } from '../services/state.service';
+import { Set } from '../types/rebrickable-lego.types';
 
 const Details: React.FC = () => {
   const [selectedSet, setSelectedSet] = useState({} as Set);
   const [favorite, setFavorite] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const [themeName, setThemeName] = useState("");
+  const [themeName, setThemeName] = useState('');
   const { favoriteSets, addFavorite, removeFavorite } =
     useContext(favoritesContext);
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ const Details: React.FC = () => {
   const getSelectedSetFromUrl = (): string => {
     const currentPath = window.location.pathname;
 
-    return currentPath.substring(currentPath.lastIndexOf("/") + 1);
+    return currentPath.substring(currentPath.lastIndexOf('/') + 1);
   };
 
   const toggleFavorite = () => {
@@ -60,42 +60,42 @@ const Details: React.FC = () => {
 
   const navigateBack = (e: MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
-    navigate("/overview", { replace: true });
+    navigate('/overview', { replace: true });
   };
 
   return loading ? (
-    <Spinner animation="border" variant="secondary"></Spinner>
+    <Spinner animation='border' variant='secondary'></Spinner>
   ) : error ? (
     <>
-      <Alert variant="warning">Oops, something went wrong!</Alert>
-      <Button href={"/overview"}>Try again</Button>
+      <Alert variant='warning'>Oops, something went wrong!</Alert>
+      <Button href={'/overview'}>Try again</Button>
     </>
   ) : (
     <>
       <Stack gap={5}>
-        <h2 style={{ textAlign: "center" }}>
+        <h2 style={{ textAlign: 'center' }}>
           Details Lego {themeName} {selectedSet.set_num}
         </h2>
-        <Container fluid="md" style={{ width: 400 }}>
+        <Container fluid='md' style={{ width: 400 }}>
           <h2>
             {selectedSet.name?.toUpperCase()}
             {favorite ? (
               <FcLike
-                style={{ marginLeft: "10px", marginBottom: "10px" }}
+                style={{ marginLeft: '10px', marginBottom: '10px' }}
                 onClick={toggleFavorite}
               ></FcLike>
             ) : (
               <FcLikePlaceholder
-                style={{ marginLeft: "10px", marginBottom: "10px" }}
+                style={{ marginLeft: '10px', marginBottom: '10px' }}
                 onClick={toggleFavorite}
               ></FcLikePlaceholder>
             )}
           </h2>
           <Row
-            className="justify-content-center"
-            style={{ marginBottom: "15px" }}
+            className='justify-content-center'
+            style={{ marginBottom: '15px' }}
           >
-            <Col className="align-self-center">
+            <Col className='align-self-center'>
               Set number: {selectedSet.set_num}
               <br />
               Released in: {selectedSet.year}
@@ -103,18 +103,18 @@ const Details: React.FC = () => {
               Number of parts: {selectedSet.num_parts}
             </Col>
           </Row>
-          <Row className="justify-content-center">
+          <Row className='justify-content-center'>
             <Col>
               <img
                 src={selectedSet.set_img_url}
                 alt={selectedSet.name}
-                style={{ maxWidth: 300, maxHeight: 300, marginBottom: "20px" }}
+                style={{ maxWidth: 300, maxHeight: 300, marginBottom: '20px' }}
               ></img>
             </Col>
           </Row>
           <Row>
-            <Col className="align-self-center">
-              <Button variant="secondary" onClick={navigateBack}>
+            <Col className='align-self-center'>
+              <Button variant='secondary' onClick={navigateBack}>
                 Back to overview
               </Button>
             </Col>
