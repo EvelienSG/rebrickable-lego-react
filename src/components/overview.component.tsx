@@ -122,7 +122,7 @@ const Overview: React.FC = () => {
                       {set.name}
                       <MdDeleteForever
                         style={{ marginLeft: '10px' }}
-                        onClick={removeFavorite(set.set_num)}
+                        onClick={() => removeFavorite(set.set_num)}
                       ></MdDeleteForever>
                     </li>
                   ))}
