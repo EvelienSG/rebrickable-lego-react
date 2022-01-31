@@ -42,6 +42,7 @@ const Details: React.FC = () => {
         .finally(() => setLoading(false))
         .catch(setError);
   }, []);
+  //favoritesets not added to dependency array as this should fire only on initiation
 
   const getSelectedSetFromUrl = (): string => {
     const currentPath = window.location.pathname;
